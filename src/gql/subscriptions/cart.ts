@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql } from "../__generated__";
 
-export const CART_ITEM_UPDATE = gql`
+export const CART_ITEM_UPDATE = gql(`
   subscription CartItemUpdate {
     cartItemUpdate {
       event
@@ -10,4 +10,4 @@ export const CART_ITEM_UPDATE = gql`
       }
     }
   }
-`;
+`);

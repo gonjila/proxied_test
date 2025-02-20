@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql } from "../__generated__";
 
-export const REGISTER = gql`
+export const REGISTER = gql(`
   mutation Register {
     register {
       _id
@@ -9,4 +9,4 @@ export const REGISTER = gql`
       isActive
     }
   }
-`;
+`);

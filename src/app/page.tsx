@@ -13,6 +13,10 @@ export default function Home() {
 
       <br />
 
+      <h2>total - {data?.getProducts?.total}</h2>
+
+      <br />
+
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {data && data?.getProducts?.products?.map(product => <li key={product._id}>{product.title}</li>)}

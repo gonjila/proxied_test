@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql } from "../__generated__";
 
-export const ADD_ITEM = gql`
+export const ADD_ITEM = gql(`
   mutation AddItem($input: AddItemArgs!) {
     addItem(input: $input) {
       _id
@@ -14,9 +14,9 @@ export const ADD_ITEM = gql`
       }
     }
   }
-`;
+`);
 
-export const REMOVE_ITEM = gql`
+export const REMOVE_ITEM = gql(`
   mutation RemoveItem($input: RemoveItemArgs!) {
     removeItem(input: $input) {
       _id
@@ -25,9 +25,9 @@ export const REMOVE_ITEM = gql`
       }
     }
   }
-`;
+`);
 
-export const UPDATE_ITEM_QUANTITY = gql`
+export const UPDATE_ITEM_QUANTITY = gql(`
   mutation UpdateItemQuantity($input: UpdateItemQuantityArgs!) {
     updateItemQuantity(input: $input) {
       _id
@@ -37,4 +37,4 @@ export const UPDATE_ITEM_QUANTITY = gql`
       }
     }
   }
-`;
+`);
