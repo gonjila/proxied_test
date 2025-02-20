@@ -2,11 +2,14 @@
 
 import { useMutation } from "@apollo/client";
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 import { authMutation } from "@/gql";
 import { AUTH_TOKEN_KEY } from "@/constants";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   const [register, { data, loading, error }] = useMutation(authMutation.REGISTER, {
     onCompleted: response => {
       if (response.register.token) {
@@ -18,6 +21,7 @@ export default function RegisterPage() {
   const handleRegister = async () => {
     try {
       await register();
+      router.push("/");
     } catch (err) {
       // TODO alert with error message
       console.error(err);

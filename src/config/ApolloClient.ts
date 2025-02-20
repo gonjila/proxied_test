@@ -8,7 +8,7 @@ import { getCookie } from "cookies-next";
 import { AUTH_TOKEN_KEY } from "@/constants";
 
 const httpLink = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
+  uri: "https://" + process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   credentials: "include",
 });
 
@@ -25,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: "wss://take-home-be.onrender.com/api",
+    url: "wss://" + process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   }),
 );
 
