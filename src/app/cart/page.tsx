@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 
 import { cartQueries, cartMutations } from "@/gql";
 import { cartRemoveItemSchema, cartUpdateItemQuantitySchema } from "@/validation";
+import { confirmAction } from "@/utils";
 
 import CartItem from "./components/CartItem";
 
@@ -17,22 +18,30 @@ function CartPage() {
   });
 
   const handleRemove = async (cartItemId: string) => {
-    try {
-      cartRemoveItemSchema.parse({ cartItemId });
-      await removeItem({ variables: { input: { cartItemId } } });
-    } catch (error) {
-      // TODO Handle validation error
-      console.error("Validation Error:", error);
-    }
+    confirmAction({
+      title: "Remove item!",
+      text: "Are you sure you want to remove this item from your cart?",
+      successText: "Item has been removed!",
+      errorText: "Item has not been removed!",
+      callback: async () => {
+        cartRemoveItemSchema.parse({ cartItemId });
+        await removeItem({ variables: { input: { cartItemId } } });
+      },
+    });
   };
 
-  const handleUpdate = async (cartItemId: string, quantity: number) => {
-    try {
-      cartUpdateItemQuantitySchema.parse({ cartItemId, quantity });
-      await updateItemQuantity({ variables: { input: { cartItemId, quantity } } });
-    } catch (error) {
-      console.error("Validation Error:", error);
-    }
+  const handleUpdate = (cartItemId: string, quantity: number) => {
+    confirmAction({
+      title: "Update quantity!",
+      text: `Are you sure you want to change the quantity to ${quantity}?`,
+      successText: "cart item quantity has changed!",
+      errorText: "cart item quantity has not changed!",
+      callback: async () => {
+        const inputValues = { cartItemId, quantity };
+        cartUpdateItemQuantitySchema.parse(inputValues);
+        await updateItemQuantity({ variables: { input: inputValues } });
+      },
+    });
   };
 
   return (

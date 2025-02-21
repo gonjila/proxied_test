@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { GetProductsQuery } from "@/gql/__generated__/graphql";
 import { cartMutations } from "@/gql";
 import { cartAddItemSchema } from "@/validation";
+import { confirmAction } from "@/utils";
 
 import Icon from "./icons";
 
@@ -16,24 +17,17 @@ function ProductCard({ product }: IProps) {
   const [addItemToCart] = useMutation(cartMutations.ADD_ITEM);
 
   const handleAddToCart = async () => {
-    const inputData = { productId: product._id, quantity: 1 };
-
-    const validationResult = cartAddItemSchema.safeParse(inputData);
-
-    if (!validationResult.success) {
-      console.error("Validation Error:", validationResult.error.format());
-      // TODO show error toast
-      alert("Invalid product data. Please try again.");
-      return;
-    }
-
-    try {
-      // TODO show success toast
-      await addItemToCart({ variables: { input: inputData } });
-    } catch (mutationError) {
-      // TODO show error toast
-      console.error("GraphQL Error:", mutationError);
-    }
+    confirmAction({
+      title: "Add to Cart",
+      text: `Are you sure you want to add ${product.title} to the cart?`,
+      successText: "Product has been added to the cart!",
+      errorText: "Product has not been added to the cart!",
+      callback: async () => {
+        const inputData = { productId: product._id, quantity: 1 };
+        cartAddItemSchema.parse(inputData);
+        await addItemToCart({ variables: { input: inputData } });
+      },
+    });
   };
 
   return (
