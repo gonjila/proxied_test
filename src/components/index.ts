@@ -1,2 +1,4 @@
-export { default as ApolloProviderWrapper } from "./ApolloProviderWrapper";
+export { default as Icon } from "./icons";
+export * from "./layouts";
+
 export { default as ProductCard } from "./ProductCard";

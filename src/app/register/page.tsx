@@ -14,6 +14,7 @@ export default function RegisterPage() {
     onCompleted: response => {
       if (response.register.token) {
         setCookie(AUTH_TOKEN_KEY, response.register.token, { path: "/" });
+        router.push("/");
       }
     },
   });
@@ -21,22 +22,30 @@ export default function RegisterPage() {
   const handleRegister = async () => {
     try {
       await register();
-      router.push("/");
     } catch (err) {
-      // TODO alert with error message
+      // TODO show error toast with err.message
       console.error(err);
     }
   };
 
-  if (loading) return <p>Registering...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  // TODO restyle this page & redirect to home page after registration
   return (
-    <div>
-      <h1>Register</h1>
-      {data?.register && <p>Registered! Token saved in cookies.</p>}
-      <button onClick={handleRegister}>Register</button>
+    <div className="flex justify-center items-center h-screen">
+      <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md w-full text-center">
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Register</h1>
+
+        {loading && <p className="text-gray-500">Registering...</p>}
+        {error && <p className="text-red-500">Error: {error.message}</p>}
+
+        {data?.register && (
+          <p className="text-green-500 font-semibold">Registered! Token saved in cookies.</p>
+        )}
+        <button
+          onClick={handleRegister}
+          className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition w-full"
+        >
+          Register
+        </button>
+      </div>
     </div>
   );
 }
