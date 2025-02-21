@@ -1,5 +1,7 @@
 import { GetProductsQuery } from "@/gql/__generated__/graphql";
 
+import Icon from "./icons";
+
 interface IProps {
   product: NonNullable<GetProductsQuery["getProducts"]["products"]>[number];
 }
@@ -17,8 +19,10 @@ function ProductCard({ product }: IProps) {
       {product.isArchived ? (
         <span className="text-red-500 font-semibold mt-2 block">Archived</span>
       ) : (
-        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
-          Add to Cart
+        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition flex items-center gap-1">
+          <Icon iconName="plus" />
+
+          <span>Add to Cart</span>
         </button>
       )}
     </li>

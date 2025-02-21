@@ -29,7 +29,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <main className="flex justify-center items-center h-screen">
       <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md w-full text-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-4">Register</h1>
 
@@ -46,6 +46,6 @@ export default function RegisterPage() {
           Register
         </button>
       </div>
-    </div>
+    </main>
   );
 }

@@ -3,17 +3,22 @@ import { gql } from "../__generated__";
 export const GET_CART = gql(`
   query GetCart {
     getCart {
+    _id
+    hash
+    items {
       _id
-      hash
-      items {
+      cartId
+      quantity
+      updatedAt
+      addedAt
+      product {
         _id
-        product {
-          _id
-          title
-          cost
-        }
-        quantity
+        title
+        cost
+        availableQuantity
+        isArchived
       }
     }
+  }
   }
 `);

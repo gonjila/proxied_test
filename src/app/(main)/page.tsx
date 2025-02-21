@@ -9,7 +9,7 @@ export default function Home() {
   const { data, loading, error } = useQuery(productQueries.GET_PRODUCTS);
 
   return (
-    <main className="container p-8 mx-auto">
+    <main className="container p-8 -mt-10 mx-auto">
       <div className="text-center mb-6">
         <h1 className="text-3xl font-bold text-gray-500">PRODUCTS</h1>
         <p className="text-gray-400">Browse our latest collection</p>
