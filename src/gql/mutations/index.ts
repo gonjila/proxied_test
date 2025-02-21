@@ -1,2 +1,2 @@
-export * as authMutation from "./auth";
-export * as cartMutation from "./cart";
+export * as authMutations from "./auth";
+export * as cartMutations from "./cart";

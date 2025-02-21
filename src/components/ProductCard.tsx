@@ -3,7 +3,7 @@
 import { useMutation } from "@apollo/client";
 
 import { GetProductsQuery } from "@/gql/__generated__/graphql";
-import { cartMutation } from "@/gql";
+import { cartMutations } from "@/gql";
 import { cartAddItemSchema } from "@/validation";
 
 import Icon from "./icons";
@@ -13,9 +13,7 @@ interface IProps {
 }
 
 function ProductCard({ product }: IProps) {
-  const [addItemToCart] = useMutation(cartMutation.ADD_ITEM, {
-    variables: { input: { productId: product._id, quantity: 1 } },
-  });
+  const [addItemToCart] = useMutation(cartMutations.ADD_ITEM);
 
   const handleAddToCart = async () => {
     const inputData = { productId: product._id, quantity: 1 };
