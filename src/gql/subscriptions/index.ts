@@ -1,1 +1,1 @@
-export * as subscriptions from "./cart";
+export * as cartSubscriptions from "./cart";

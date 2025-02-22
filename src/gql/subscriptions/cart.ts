@@ -5,9 +5,17 @@ export const CART_ITEM_UPDATE = gql(`
     cartItemUpdate {
       event
       payload {
+      _id
+      cartId
+      quantity
+      product {
         _id
-        quantity
+        title
+        cost
+        availableQuantity
+        isArchived
       }
+    }
     }
   }
 `);

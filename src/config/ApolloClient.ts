@@ -7,14 +7,14 @@ import { getCookie } from "cookies-next";
 
 import { AUTH_TOKEN_KEY } from "@/constants";
 
+const token = getCookie(AUTH_TOKEN_KEY);
+
 const httpLink = createHttpLink({
   uri: "https://" + process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   credentials: "include",
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = getCookie(AUTH_TOKEN_KEY);
-
   return {
     headers: {
       ...headers,
@@ -26,6 +26,9 @@ const authLink = setContext((_, { headers }) => {
 const wsLink = new GraphQLWsLink(
   createClient({
     url: "wss://" + process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
+    connectionParams: {
+      authToken: token,
+    },
   }),
 );
 

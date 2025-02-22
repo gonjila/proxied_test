@@ -20,7 +20,7 @@ type Documents = {
     "\n  mutation UpdateItemQuantity($input: UpdateItemQuantityArgs!) {\n    updateItemQuantity(input: $input) {\n      _id\n      items {\n        _id\n        quantity\n      }\n    }\n  }\n": typeof types.UpdateItemQuantityDocument,
     "\n  query GetCart {\n    getCart {\n    _id\n    hash\n    items {\n      _id\n      cartId\n      quantity\n      updatedAt\n      addedAt\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n  }\n": typeof types.GetCartDocument,
     "\n  query GetProducts {\n    getProducts {\n      total\n\n      products {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n": typeof types.GetProductsDocument,
-    "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n        _id\n        quantity\n      }\n    }\n  }\n": typeof types.CartItemUpdateDocument,
+    "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n      _id\n      cartId\n      quantity\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n    }\n  }\n": typeof types.CartItemUpdateDocument,
 };
 const documents: Documents = {
     "\n  mutation Register {\n    register {\n      _id\n      token\n      cartId\n      isActive\n    }\n  }\n": types.RegisterDocument,
@@ -29,7 +29,7 @@ const documents: Documents = {
     "\n  mutation UpdateItemQuantity($input: UpdateItemQuantityArgs!) {\n    updateItemQuantity(input: $input) {\n      _id\n      items {\n        _id\n        quantity\n      }\n    }\n  }\n": types.UpdateItemQuantityDocument,
     "\n  query GetCart {\n    getCart {\n    _id\n    hash\n    items {\n      _id\n      cartId\n      quantity\n      updatedAt\n      addedAt\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n  }\n": types.GetCartDocument,
     "\n  query GetProducts {\n    getProducts {\n      total\n\n      products {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n": types.GetProductsDocument,
-    "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n        _id\n        quantity\n      }\n    }\n  }\n": types.CartItemUpdateDocument,
+    "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n      _id\n      cartId\n      quantity\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n    }\n  }\n": types.CartItemUpdateDocument,
 };
 
 /**
@@ -73,7 +73,7 @@ export function gql(source: "\n  query GetProducts {\n    getProducts {\n      t
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n        _id\n        quantity\n      }\n    }\n  }\n"): (typeof documents)["\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n        _id\n        quantity\n      }\n    }\n  }\n"];
+export function gql(source: "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n      _id\n      cartId\n      quantity\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n    }\n  }\n"): (typeof documents)["\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n      _id\n      cartId\n      quantity\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
