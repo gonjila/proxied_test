@@ -7,6 +7,7 @@ import { cartQueries, cartMutations, cartSubscriptions } from "@/gql";
 import { cartRemoveItemSchema, cartUpdateItemQuantitySchema } from "@/validation";
 import { confirmAction } from "@/utils";
 import { useCartStore } from "@/store";
+import { CartItemEvent } from "@/gql/__generated__/graphql";
 
 import CartItem from "./components/CartItem";
 
@@ -25,7 +26,17 @@ function CartPage() {
     onData: ({ data }) => {
       if (data.data?.cartItemUpdate) {
         updateSubscribedCartItem(data.data?.cartItemUpdate);
-        swal("Cart updated!", "Your cart has been updated.", "info");
+
+        const text =
+          data.data?.cartItemUpdate.event === CartItemEvent.ItemOutOfStock
+            ? `${data.data?.cartItemUpdate.payload.product.title} has deleted from cart!`
+            : `Available quantity of ${data.data?.cartItemUpdate.payload.product.title} has changed!`;
+
+        swal({
+          text: text,
+          icon: "info",
+          timer: 3000,
+        });
       }
     },
   });

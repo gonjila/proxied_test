@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { GetCartQuery, CartItemUpdateSubscription } from "@/gql/__generated__/graphql";
+import { GetCartQuery, CartItemUpdateSubscription, CartItemEvent } from "@/gql/__generated__/graphql";
 
 interface CartState {
   cart: GetCartQuery["getCart"] | null;
@@ -40,11 +40,9 @@ const useCartStore = create<CartState>(set => ({
       const { event, payload } = update;
       let updatedItems = [...state.cart.items];
 
-      if (event === "ITEM_OUT_OF_STOCK") {
-        // Remove item from cart
+      if (event === CartItemEvent.ItemOutOfStock) {
         updatedItems = updatedItems.filter(item => item._id !== payload._id);
-      } else if (event === "ITEM_QUANTITY_UPDATED") {
-        // Update item quantity
+      } else if (event === CartItemEvent.ItemQuantityUpdated) {
         updatedItems = updatedItems.map(item =>
           item._id === payload._id ? { ...item, quantity: payload.quantity } : item,
         );
