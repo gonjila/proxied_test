@@ -1,12 +1,19 @@
+"use client";
+
+import { useState } from "react";
+
+import { Icon } from "@/components";
 import { GetCartQuery } from "@/gql/__generated__/graphql";
 
 type IProps = {
   data: GetCartQuery["getCart"]["items"][number];
-  onRemove: (id: string) => void;
   onUpdate: (id: string, quantity: number) => void;
+  onRemove: (id: string) => void;
 };
 
-function CartItem({ data, onRemove, onUpdate }: IProps) {
+function CartItem({ data, onUpdate, onRemove }: IProps) {
+  const [inputValue, setInputValue] = useState(data.quantity);
+
   return (
     <li className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md mb-4">
       <div className="text-gray-600">
@@ -17,19 +24,24 @@ function CartItem({ data, onRemove, onUpdate }: IProps) {
       </div>
 
       <div className="flex flex-col items-center gap-1">
-        <button
-          onClick={() => onUpdate(data._id, data.quantity + 1)}
-          className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
-        >
-          +
-        </button>
-        <button
-          onClick={() => onUpdate(data._id, data.quantity - 1)}
-          className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600"
-          disabled={data.quantity <= 1}
-        >
-          -
-        </button>
+        <div className="flex items-center gap-2">
+          <input
+            type="number"
+            min={1}
+            max={99}
+            value={inputValue}
+            onChange={el => setInputValue(+el.target.value)}
+            className="text-black w-14 pl-3 border border-black rounded-lg"
+          />
+
+          <button
+            onClick={() => onUpdate(data._id, inputValue)}
+            className="w-10 h-full bg-green-500  hover:bg-green-600 rounded-lg grid place-items-center"
+          >
+            <Icon iconName="check" />
+          </button>
+        </div>
+
         <button
           onClick={() => onRemove(data._id)}
           className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"

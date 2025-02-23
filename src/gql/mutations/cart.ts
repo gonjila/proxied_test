@@ -9,6 +9,7 @@ export const ADD_ITEM = gql(`
         _id
         cartId
         quantity
+        addedAt
         product {
           _id
           title

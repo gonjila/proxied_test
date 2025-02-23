@@ -30,7 +30,7 @@ function CartPage() {
         swal({
           text: text,
           icon: "info",
-          timer: 3000,
+          timer: 5000,
         });
       }
     },

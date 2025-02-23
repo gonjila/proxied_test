@@ -1,4 +1,5 @@
 import Cart from "./Cart";
+import Check from "./Check";
 import LeftArrow from "./LeftArrow";
 import Plus from "./Plus";
 
@@ -9,7 +10,7 @@ interface IconProps {
   color?: string;
 }
 
-type IconNameType = "cart" | "leftArrow" | "plus";
+type IconNameType = "cart" | "check" | "leftArrow" | "plus";
 
 const Icon = ({ iconName, width, height, color }: IconProps) => {
   let IconComponet = null;
@@ -17,6 +18,9 @@ const Icon = ({ iconName, width, height, color }: IconProps) => {
   switch (iconName) {
     case "cart":
       IconComponet = Cart;
+      break;
+    case "check":
+      IconComponet = Check;
       break;
     case "leftArrow":
       IconComponet = LeftArrow;
