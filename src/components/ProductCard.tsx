@@ -6,6 +6,7 @@ import { GetProductsQuery } from "@/gql/__generated__/graphql";
 import { cartMutations } from "@/gql";
 import { cartAddItemSchema } from "@/validation";
 import { confirmAction } from "@/utils";
+import { useCartStore } from "@/store";
 
 import Icon from "./icons";
 
@@ -14,6 +15,8 @@ interface IProps {
 }
 
 function ProductCard({ product }: IProps) {
+  const { setCart } = useCartStore();
+
   const [addItemToCart] = useMutation(cartMutations.ADD_ITEM);
 
   const handleAddToCart = async () => {
@@ -25,7 +28,11 @@ function ProductCard({ product }: IProps) {
       callback: async () => {
         const inputData = { productId: product._id, quantity: 1 };
         cartAddItemSchema.parse(inputData);
-        await addItemToCart({ variables: { input: inputData } });
+        const newCartItem = await addItemToCart({ variables: { input: inputData } });
+
+        if (newCartItem.data?.addItem) {
+          setCart(newCartItem.data.addItem);
+        }
       },
     });
   };

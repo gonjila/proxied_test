@@ -1,9 +1,9 @@
 "use client";
 
-import { useQuery, useMutation, useSubscription } from "@apollo/client";
+import { useMutation, useSubscription } from "@apollo/client";
 import swal from "sweetalert";
 
-import { cartQueries, cartMutations, cartSubscriptions } from "@/gql";
+import { cartMutations, cartSubscriptions } from "@/gql";
 import { cartRemoveItemSchema, cartUpdateItemQuantitySchema } from "@/validation";
 import { confirmAction } from "@/utils";
 import { useCartStore } from "@/store";
@@ -12,12 +12,7 @@ import { CartItemEvent } from "@/gql/__generated__/graphql";
 import CartItem from "./components/CartItem";
 
 function CartPage() {
-  const { cart, setCart, updateCartItemQuantety, deleteCartItem, updateSubscribedCartItem } =
-    useCartStore();
-
-  const { loading, error } = useQuery(cartQueries.GET_CART, {
-    onCompleted: data => setCart(data.getCart),
-  });
+  const { cart, updateCartItemQuantety, deleteCartItem, updateSubscribedCartItem } = useCartStore();
 
   const [removeItem] = useMutation(cartMutations.REMOVE_ITEM);
   const [updateItemQuantity] = useMutation(cartMutations.UPDATE_ITEM_QUANTITY);
@@ -75,9 +70,6 @@ function CartPage() {
       <h1 className="text-3xl font-bold text-gray-500 text-center mb-6">Your Cart</h1>
 
       <div className="max-w-4xl mx-auto">
-        {loading && <p className="text-center text-gray-500">Loading cart...</p>}
-        {error && <p className="text-center text-red-500">Error: {error.message}</p>}
-
         {cart?.items.length ? (
           <ul>
             {cart?.items.map(item => (

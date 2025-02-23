@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
+
+import { useCartStore } from "@/store";
 
 import Icon from "./icons";
 
 function MainHeader() {
+  const { cart } = useCartStore();
+
   return (
     <header className="px-5 md:px-14 flex justify-end sticky top-5 md:top-10">
       <Link
@@ -13,7 +19,7 @@ function MainHeader() {
         <Icon iconName="cart" width={28} height={28} />
 
         <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -end-1 dark:border-gray-900">
-          20
+          {cart?.items.length || 0}
         </div>
       </Link>
     </header>

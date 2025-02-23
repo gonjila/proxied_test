@@ -4,13 +4,18 @@ export const ADD_ITEM = gql(`
   mutation AddItem($input: AddItemArgs!) {
     addItem(input: $input) {
       _id
+      hash
       items {
         _id
+        cartId
+        quantity
         product {
           _id
           title
+          cost
+          availableQuantity
+          isArchived
         }
-        quantity
       }
     }
   }

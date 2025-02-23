@@ -15,19 +15,19 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  mutation Register {\n    register {\n      _id\n      token\n      cartId\n      isActive\n    }\n  }\n": typeof types.RegisterDocument,
-    "\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      items {\n        _id\n        product {\n          _id\n          title\n        }\n        quantity\n      }\n    }\n  }\n": typeof types.AddItemDocument,
+    "\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n": typeof types.AddItemDocument,
     "\n  mutation RemoveItem($input: RemoveItemArgs!) {\n    removeItem(input: $input) {\n      _id\n      items {\n        _id\n      }\n    }\n  }\n": typeof types.RemoveItemDocument,
     "\n  mutation UpdateItemQuantity($input: UpdateItemQuantityArgs!) {\n    updateItemQuantity(input: $input) {\n      _id\n      items {\n        _id\n        quantity\n      }\n    }\n  }\n": typeof types.UpdateItemQuantityDocument,
-    "\n  query GetCart {\n    getCart {\n    _id\n    hash\n    items {\n      _id\n      cartId\n      quantity\n      updatedAt\n      addedAt\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n  }\n": typeof types.GetCartDocument,
+    "\n  query GetCart {\n    getCart {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n": typeof types.GetCartDocument,
     "\n  query GetProducts {\n    getProducts {\n      total\n\n      products {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n": typeof types.GetProductsDocument,
     "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n      _id\n      cartId\n      quantity\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n    }\n  }\n": typeof types.CartItemUpdateDocument,
 };
 const documents: Documents = {
     "\n  mutation Register {\n    register {\n      _id\n      token\n      cartId\n      isActive\n    }\n  }\n": types.RegisterDocument,
-    "\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      items {\n        _id\n        product {\n          _id\n          title\n        }\n        quantity\n      }\n    }\n  }\n": types.AddItemDocument,
+    "\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n": types.AddItemDocument,
     "\n  mutation RemoveItem($input: RemoveItemArgs!) {\n    removeItem(input: $input) {\n      _id\n      items {\n        _id\n      }\n    }\n  }\n": types.RemoveItemDocument,
     "\n  mutation UpdateItemQuantity($input: UpdateItemQuantityArgs!) {\n    updateItemQuantity(input: $input) {\n      _id\n      items {\n        _id\n        quantity\n      }\n    }\n  }\n": types.UpdateItemQuantityDocument,
-    "\n  query GetCart {\n    getCart {\n    _id\n    hash\n    items {\n      _id\n      cartId\n      quantity\n      updatedAt\n      addedAt\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n  }\n": types.GetCartDocument,
+    "\n  query GetCart {\n    getCart {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n": types.GetCartDocument,
     "\n  query GetProducts {\n    getProducts {\n      total\n\n      products {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n": types.GetProductsDocument,
     "\n  subscription CartItemUpdate {\n    cartItemUpdate {\n      event\n      payload {\n      _id\n      cartId\n      quantity\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n    }\n  }\n": types.CartItemUpdateDocument,
 };
@@ -53,7 +53,7 @@ export function gql(source: "\n  mutation Register {\n    register {\n      _id\
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      items {\n        _id\n        product {\n          _id\n          title\n        }\n        quantity\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      items {\n        _id\n        product {\n          _id\n          title\n        }\n        quantity\n      }\n    }\n  }\n"];
+export function gql(source: "\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation AddItem($input: AddItemArgs!) {\n    addItem(input: $input) {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -65,7 +65,7 @@ export function gql(source: "\n  mutation UpdateItemQuantity($input: UpdateItemQ
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetCart {\n    getCart {\n    _id\n    hash\n    items {\n      _id\n      cartId\n      quantity\n      updatedAt\n      addedAt\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n  }\n"): (typeof documents)["\n  query GetCart {\n    getCart {\n    _id\n    hash\n    items {\n      _id\n      cartId\n      quantity\n      updatedAt\n      addedAt\n      product {\n        _id\n        title\n        cost\n        availableQuantity\n        isArchived\n      }\n    }\n  }\n  }\n"];
+export function gql(source: "\n  query GetCart {\n    getCart {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetCart {\n    getCart {\n      _id\n      hash\n      items {\n        _id\n        cartId\n        quantity\n        product {\n          _id\n          title\n          cost\n          availableQuantity\n          isArchived\n        }\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
