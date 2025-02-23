@@ -14,6 +14,20 @@ type IProps = {
 function CartItem({ data, onUpdate, onRemove }: IProps) {
   const [inputValue, setInputValue] = useState(data.quantity);
 
+  const handleChangeQuantity = () => {
+    if (data.quantity === inputValue) {
+      swal({
+        title: "Process canceled!",
+        text: "The products quantity is already the same",
+        icon: "info",
+        timer: 5000,
+      });
+      return;
+    }
+
+    onUpdate(data._id, inputValue);
+  };
+
   return (
     <li className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md mb-4">
       <div className="text-gray-600">
@@ -28,14 +42,14 @@ function CartItem({ data, onUpdate, onRemove }: IProps) {
           <input
             type="number"
             min={1}
-            max={99}
+            max={data.product.availableQuantity}
             value={inputValue}
             onChange={el => setInputValue(+el.target.value)}
             className="text-black w-14 pl-3 border border-black rounded-lg"
           />
 
           <button
-            onClick={() => onUpdate(data._id, inputValue)}
+            onClick={handleChangeQuantity}
             className="w-10 h-full bg-green-500  hover:bg-green-600 rounded-lg grid place-items-center"
           >
             <Icon iconName="check" />
