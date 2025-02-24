@@ -2,31 +2,20 @@
 
 import { useMutation } from "@apollo/client";
 import { setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
 
 import { authMutations } from "@/gql";
 import { AUTH_TOKEN_KEY } from "@/constants";
 
 export default function RegisterPage() {
-  const router = useRouter();
-
   const [register, { data, loading, error }] = useMutation(authMutations.REGISTER, {
-    onCompleted: response => {
+    onCompleted: async response => {
       if (response.register.token) {
-        setCookie(AUTH_TOKEN_KEY, response.register.token, { path: "/" });
-        router.push("/");
+        await setCookie(AUTH_TOKEN_KEY, response.register.token, { path: "/" });
+
+        window.location.reload();
       }
     },
   });
-
-  const handleRegister = async () => {
-    try {
-      await register();
-    } catch (err) {
-      // TODO show error toast with err.message
-      console.error(err);
-    }
-  };
 
   return (
     <main className="flex justify-center items-center h-screen">
@@ -40,7 +29,7 @@ export default function RegisterPage() {
           <p className="text-green-500 font-semibold">Registered! Token saved in cookies.</p>
         )}
         <button
-          onClick={handleRegister}
+          onClick={() => register()}
           className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition w-full"
         >
           Register
