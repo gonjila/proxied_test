@@ -32,7 +32,7 @@ function CartItem({ data, onUpdate, onRemove }: IProps) {
     <li className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md mb-4">
       <div className="text-gray-600">
         <h3 className="text-lg font-semibold text-gray-800">{data.product.title}</h3>
-        <p>Price: ${data.product.cost.toFixed(2)}</p>
+        <p>Price: ${data.product.cost ? data.product.cost.toFixed(2) : "N/A"}</p>
         <p>Quantity: {data.quantity}</p>
         <p>Added: {new Date(parseInt(data.addedAt)).toLocaleDateString()}</p>
       </div>
@@ -50,6 +50,7 @@ function CartItem({ data, onUpdate, onRemove }: IProps) {
 
           <button
             onClick={handleChangeQuantity}
+            aria-label="Update quantity"
             className="w-10 h-full bg-green-500  hover:bg-green-600 rounded-lg grid place-items-center"
           >
             <Icon iconName="check" />
