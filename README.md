@@ -12,6 +12,7 @@
 - [Installation & Setup](#installation-setup)
 - [Project Structure](#project-structure)
 - [Usage](#usage)
+- [Testing](#testing)
 - [Authors](#authors)
 
 ---
@@ -117,6 +118,32 @@ Once the server is running:
 - Browse products and add to cart.
 - Real-time updates on stock changes via GraphQL subscriptions.
 - State management using Zustand for better performance.
+
+---
+
+## 🧪 Testing <div id="testing"></div>
+
+### Running Tests
+
+The project uses **Jest** and **React Testing Library** for unit and integration testing.
+
+1. Run all tests:
+
+   ```bash
+   yarn test  # or npm run test
+   ```
+
+2. Run tests in watch mode:
+
+   ```bash
+   yarn test --watch  # or npm run test -- --watch
+   ```
+
+3. Run tests with coverage report:
+
+   ```bash
+   yarn test --coverage  # or npm run test -- --coverage
+   ```
 
 ---
 

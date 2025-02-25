@@ -34,7 +34,7 @@ describe("CartItem Component", () => {
     const input = screen.getByRole("spinbutton"); // Finds the number input
     fireEvent.change(input, { target: { value: "3" } });
 
-    const updateButton = screen.getByRole("button", { name: /update quantity/i });
+    const updateButton = screen.getByRole("button", { name: /Update quantity/i });
     fireEvent.click(updateButton);
 
     expect(mockUpdate).toHaveBeenCalledWith("1", 3);
